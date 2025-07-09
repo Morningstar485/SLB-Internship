@@ -1,0 +1,108 @@
+        self.checkBox.stateChanged.connect(
+            lambda state: self.checkBox_2.show() if state == 2 else self.checkBox_2.hide()
+        )
+
+        self.checkBox_2.stateChanged.connect(
+            lambda state: self.checkBox_3.show() if state == 2 else self.checkBox_3.hide()
+        )
+        self.checkBox_3.stateChanged.connect(
+            lambda state: self.pushButton.show() if state == 2 else self.pushButton.hide()
+        )
+
+
+        def update_ui():
+            # Show radio buttons only if the first checkbox is checked
+            if self.checkBox_3.isChecked():
+                self.radioButton_1.show()
+                self.radioButton_2.show()
+                self.pushButton.hide()
+            else:
+                self.radioButton_1.hide()
+                self.radioButton_2.hide()
+                self.label_2.hide()
+                self.checkBox_4.hide()
+                self.pushButton.hide()
+                return
+
+            # Show image and second checkbox only if radioButton_2 is selected
+            if self.radioButton_2.isChecked():
+                self.label_2.show()
+                self.checkBox_4.show()
+                self.pushButton.hide()
+            elif self.radioButton_1.isChecked():
+                self.label_2.hide()
+                self.checkBox_4.hide()
+                self.pushButton.show()
+            else:
+                self.label_2.hide()
+                self.checkBox_4.hide()
+
+        self.checkBox_3.stateChanged.connect(update_ui)
+        self.radioButton_1.toggled.connect(update_ui)
+        self.radioButton_2.toggled.connect(update_ui)
+
+
+    def open_next_dialog(self):
+        dialog = QDialog()
+        mrsc_ui = MRSC_Ui()
+        mrsc_ui.setupUi(dialog)
+        dialog.exec()
+        QApplication.quit()
+
+if __name__ == "__main__":
+    import sys
+    app = QApplication(sys.argv)
+    Dialog = QDialog()
+    ui = Ui_Dialog()
+    ui.setupUi(Dialog)
+    Dialog.show()
+    sys.exit(app.exec())
+
+class Perform_MRMS_1(QDialog):
+    def __init__(self, child_metadata=None, admin_metadata=None):
+        super().__init__()
+        self.child_metadata = child_metadata
+        self.admin_metadata = admin_metadata
+
+        self.ui = Ui_Dialog()
+        self.ui.setupUi(self)
+
+        self.ui.pushButton.clicked.connect(self.next_step)
+
+    def next_step(self):
+
+        self.accept()
+
+    def open_link(self):
+        QDesktopServices.openUrl(QUrl("https://intouchsupport.com/index.cfm?event=content.preview&contentid=7125068"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QApplication(sys.argv)
+    Dialog = QDialog()
+    ui = Ui_Dialog()
+    ui.setupUi(Dialog)
+    Dialog.show()
+    sys.exit(app.exec())
+
+self.checkBox_1.toggled.connect(lambda checked: self.frame_14.setVisible(checked))
+
+
+
+class Perform_MRPO_GS_1(QDialog):
+    def __init__(self, child_metadata=None, admin_metadata=None):
+        super().__init__()
+        self.child_metadata = child_metadata
+        self.admin_metadata = admin_metadata
+
+        self.ui = Ui_Dialog()
+        self.ui.setupUi(self)
+
+        self.ui.pushButton.clicked.connect(self.next_step)
+
+    def next_step(self):
+        dialog2 = Perform_MRPO_GS_2(self.child_metadata, self.admin_metadata)
+        if dialog2.exec() == QDialog.Accepted:
+            self.accept()  # ✅ Close this dialog and continue chain
+
