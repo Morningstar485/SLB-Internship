@@ -469,8 +469,6 @@ class Ui_Dialog(object):
                 v2 = None
             show = (v1 is not None and v1 > 3100) or (v2 is not None and v2 > 3100)
             self.frame_16.setVisible(show)
-            show_pushbutton = (v1 is not None and v1 < 3100) and (v2 is not None and v2 < 3100)
-            self.pushButton.setVisible(show_pushbutton)
         self.lineEdit_5.textChanged.connect(update_frame16_visibility)
         self.lineEdit_6.textChanged.connect(update_frame16_visibility)
         update_frame16_visibility()
